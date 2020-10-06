@@ -13,6 +13,8 @@ import java.text.NumberFormat
 import javax.swing.*
 import javax.swing.text.NumberFormatter
 
+
+//test
 class AutoCreationVC: ViewController() {
 
     private val autoName = JTextField()
