@@ -14,7 +14,7 @@ import javax.swing.*
 import javax.swing.text.NumberFormatter
 
 
-//test
+//Testing commit
 class AutoCreationVC: ViewController() {
 
     private val autoName = JTextField()
