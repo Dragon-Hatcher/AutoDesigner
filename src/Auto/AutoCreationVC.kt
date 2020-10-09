@@ -5,6 +5,7 @@ import Extensions.setFilter
 import GameProperties.AllianceColor
 import MVC.ViewController
 import Robot.Robot
+import Robot.RobotCreationVC
 import autos
 import robots
 import java.awt.*
@@ -13,8 +14,6 @@ import java.text.NumberFormat
 import javax.swing.*
 import javax.swing.text.NumberFormatter
 
-
-//Testing
 class AutoCreationVC: ViewController() {
 
     private val autoName = JTextField()
@@ -35,10 +34,7 @@ class AutoCreationVC: ViewController() {
         }
 
         view.layout = GridBagLayout()
-        view.border = BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("New Autonomous"),
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)
-        )
+        paddedTitle("New Autonomous")
 
         //name
         gbcLabelAt(0, 0, "Name:")
@@ -56,7 +52,8 @@ class AutoCreationVC: ViewController() {
         robotDropDown.addItemListener{
             if(it.stateChange == ItemEvent.SELECTED && (it.item as String) == "+ New Robot") {
                 robotDropDown.selectedItem = null
-                robots.add(Robot("Fred: "))
+//                robots.add(Robot("Fred: "))
+                navController!!.push(RobotCreationVC())
             }
             updateButton()
         }
@@ -71,7 +68,7 @@ class AutoCreationVC: ViewController() {
         view.add(blueRB, createGbc(2, 2))
 
         //expected points
-        expectedScore.setFilter { it.isBlank() || it.matches(Regex("[0-9]+")) }
+        expectedScore.setFilter { it.isBlank() || it.toIntOrNull() != null }
 
         gbcLabelAt(0, 3, "Expected Points:")
 

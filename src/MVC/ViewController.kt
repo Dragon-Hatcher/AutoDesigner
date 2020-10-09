@@ -2,6 +2,7 @@ package MVC
 
 import java.awt.GridBagConstraints
 import java.awt.Insets
+import javax.swing.BorderFactory
 import javax.swing.JLabel
 import javax.swing.JPanel
 
@@ -10,6 +11,13 @@ abstract class ViewController() {
     var navController: NavigationController? = null
     var view: JPanel = JPanel()
     private val models: MutableList<Model> = mutableListOf()
+
+    protected fun paddedTitle(title: String, padding: Int = 10, view: JPanel = this.view) {
+        view.border = BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder(title),
+                BorderFactory.createEmptyBorder(padding, padding, padding, padding)
+        )
+    }
 
     protected fun subscribeToModel(model: Model, updater: () -> Unit): Model {
         model.addListener(this, updater)
@@ -27,7 +35,7 @@ abstract class ViewController() {
         models.forEach { it.removeListener(this) }
     }
 
-    protected fun gbcLabelAt(x: Int, y: Int, labelString: String): JLabel {
+    protected fun gbcLabelAt(x: Int, y: Int, labelString: String, view: JPanel = this.view): JLabel {
         val gbc = createGbc(x, y)
         val label = JLabel(labelString)
         view.add(label, gbc)
