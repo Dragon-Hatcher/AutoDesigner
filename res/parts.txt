@@ -1,0 +1,33 @@
+|---------------------|--------------------------------------------|---------------------------------|--------|-------|------|-----|
+| Device Type         | Class Name                                 | Configuration Name (In RC App)  | T/R    | GR    | mRPM | SD  |
+|---------------------|--------------------------------------------|---------------------------------|--------|-------|------|-----|
+  MotorType,            GoBILDA5201Series,                           GoBILDA 5201 series,              1550,    54,     104,   CCW
+  MotorType,            GoBILDA5202Series,                           GoBILDA 5202 series,              2786,    99.5,   60,    CCW
+  MotorType,            Matric12vMotor,                              Matrix 12v Motor,                 1478.4,  52.7,   190,   CW
+  MotorType,            MatrixLegacyMotor,                           Matrix Legacy 9.6v Motor,         757.12,  27.04,  195,   CW
+  MotorType,            NeveRest20Gearmotor,                         NeveRest 20 Gearmotor,            560,     20,     315,   CW
+  MotorType,            NeveRest3_7GearmotorV1,                      NeveRest 3.7 v1 Gearmotor,        44.4,    3.7,    1784,  CCW
+  MotorType,            NeveRest40Gearmotor,                         NeveRest 40 Gearmotor,            1120,    40,     160,   CCW
+  MotorType,            NeveRest60Gearmotor,                         NeveRest 60 Gearmotor,            1680,    60,     105,   CCW
+  MotorType,            RevRobotics20HdHexMotor,                     REV Robotics 20 1 HD Hex Motor,   560,     20,     300,   CCW
+  MotorType,            RevRobotics40HdHexMotor,                     REV Robotics 40 1 HD Hex Motor,   1120,    40,     150,   CCW
+  MotorType,            RevRoboticsCoreHexMotor,                     REV Robotics Core Hex Motor,      288,     36.25,  137,   CCw
+  MotorType,            TetrixMotor,                                 Textrix Motor,                    1440,    52,     165,   CW
+  MotorType,            UnspecifiedMotor,                            Unspecified Motor,                1440,    52,     165,   CW
+  I2cDeviceType,        AdafruitBNO055IMU,                           Adafruit IMU
+  I2cDeviceType,        NavxMicroNavigationSensor,                   navX Micro
+  I2cDeviceType,        LynxEmbeddedIMU,                             Rev Expansion Hub IMU
+  AnalogSensorType,     ModernRoboticsAnalogOpticalDistanceSensor,   MR Optical Distance Sensor
+  I2cDeviceType,        ModernRoboticsI2cCompassSensor,              MR Compass Sensor
+  I2cDeviceType,        ModernRoboticsI2cRangeSensor,                MR Range Sensor
+  AnalogSensorType,     ModernRoboticsTouchSensor,                   MR Touch Sensor
+  I2cDeviceType,        Rev2mDistanceSensor,                         REV 2M Distance Sensor
+  ServoType,            RevBlinkinLedDriver,                         REV Blinkin LED Driver
+  I2cDeviceType,        RevColorSensorV3,                            REV Color Sensor v3
+  ServoType,            RevSPARKMini,                                REV SPARKmini Controller
+  DigitalDeviceType,    RevTouchSensor,                              REV Touch Sensor
+  AnalogSensorType,     AnalogInput,                                 Analog Input
+  ServoType,            CRServo,                                     Continuous Rotation Servo
+  DigitalIoDeviceType,  DigitalChannellmpl,                          Digital Device
+  DigitalIoDeviceType,  LED,                                         LED
+  ServoType,            Servo,                                       Servo
