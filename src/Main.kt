@@ -1,7 +1,6 @@
-import Robot.RobotsModel
-import Auto.AutoCreationVC
-import Auto.AutosModel
-import Robot.RobotCreationVC
+import robot.RobotsModel
+import auto.AutoCreationVC
+import auto.AutosModel
 import javax.swing.JFrame
 
 var robots = RobotsModel()

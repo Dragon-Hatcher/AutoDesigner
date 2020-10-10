@@ -1,6 +1,6 @@
-package Robot
+package robot
 
-import MVC.Model
+import mvc.Model
 
 class RobotsModel: Model() {
     var robots: List<Robot> = listOf()

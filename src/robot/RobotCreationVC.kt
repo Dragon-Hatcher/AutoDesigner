@@ -1,7 +1,7 @@
-package Robot
+package robot
 
-import MVC.ViewController
-import Utils.Size
+import mvc.ViewController
+import utils.Size
 import java.awt.*
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener

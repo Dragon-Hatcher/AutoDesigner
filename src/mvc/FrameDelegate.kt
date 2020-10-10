@@ -1,4 +1,4 @@
-package MVC
+package mvc
 
 interface FrameDelegate {
     fun viewUpdated()

@@ -1,7 +1,6 @@
-package Auto
+package auto
 
-import GameProperties.AllianceColor
-import MVC.Model
+import mvc.Model
 
 class AutosModel(): Model() {
     var autos: List<Auto> = listOf()

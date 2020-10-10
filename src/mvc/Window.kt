@@ -1,9 +1,8 @@
-package MVC
+package mvc
 
 import java.awt.Color
 import java.awt.Dimension
 import javax.swing.JFrame
-import javax.swing.JPanel
 
 open class Window: FrameDelegate {
     var frame = JFrame().also{it.preferredSize = Dimension(500, 500); it.background = Color(255, 0, 0) }

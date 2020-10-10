@@ -1,5 +1,5 @@
-import MVC.NavigationController
-import MVC.Window
+import mvc.NavigationController
+import mvc.Window
 import java.awt.Dimension
 import java.awt.GridBagLayout
 import javax.swing.JFrame

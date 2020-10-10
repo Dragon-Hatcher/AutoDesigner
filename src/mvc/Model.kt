@@ -1,4 +1,4 @@
-package MVC
+package mvc
 
 abstract class Model {
 

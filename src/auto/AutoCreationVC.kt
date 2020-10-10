@@ -1,11 +1,10 @@
-package Auto
+package auto
 
-import Extensions.changeListener
-import Extensions.setFilter
-import GameProperties.AllianceColor
-import MVC.ViewController
-import Robot.Robot
-import Robot.RobotCreationVC
+import extensions.changeListener
+import extensions.setFilter
+import gameProperties.AllianceColor
+import mvc.ViewController
+import robot.RobotCreationVC
 import autos
 import robots
 import java.awt.*

@@ -1,4 +1,4 @@
-package MVC
+package mvc
 
 import javax.swing.JPanel
 
