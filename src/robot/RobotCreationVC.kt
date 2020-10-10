@@ -10,7 +10,7 @@ import javax.swing.JPanel
 import javax.swing.JTextField
 import javax.swing.UIManager
 
-class RobotCreationVC: ViewController() {
+class RobotCreationVC : ViewController() {
 
     private val optionsView = JPanel()
     private val layoutView = JPanel()
@@ -33,13 +33,13 @@ class RobotCreationVC: ViewController() {
 
         //Layout
         paddedTitle("Layout", view = layoutView)
-        layoutView.add(LayoutCanvas().also{it.preferredSize = Dimension(500, 500) })
+        layoutView.add(LayoutCanvas().also { it.preferredSize = Dimension(500, 500) })
 
         view.add(layoutView, createGbc(0, 1))
     }
 
 
-    class LayoutCanvas: JPanel() {
+    class LayoutCanvas : JPanel(), MouseListener, MouseMotionListener {
 
         data class Target(var position: Point, var size: Size) {
             fun within(e: MouseEvent): Boolean =
@@ -52,52 +52,49 @@ class RobotCreationVC: ViewController() {
         var currentTarget: Target? = null
         var targetOffset: Size? = null
         val targets: MutableList<Target> = mutableListOf()
-        val thisRef = this
 
-        init{
+        init {
             targets.add(Target(Point(10, 10), Size(30.0, 40.0)))
 
-            addMouseListener(object: MouseListener {
-                override fun mouseClicked(e: MouseEvent?) {}
-                override fun mouseEntered(e: MouseEvent?) {}
-                override fun mouseExited(e: MouseEvent?) {}
+            addMouseListener(this)
+            addMouseMotionListener(this)
+        }
 
-                override fun mousePressed(e: MouseEvent?) {
-                    e ?: return
-                    currentTarget = targets.firstOrNull { it.within(e) }
-                    if(currentTarget != null) {
-                        targetOffset = Size((currentTarget!!.position.x - e.point.x).toDouble(), (currentTarget!!.position.y - e.point.y).toDouble())
-                    }
-                }
+        override fun mouseDragged(e: MouseEvent?) {
+            currentTarget ?: return
+            e ?: return
+            currentTarget!!.position.x = (targetOffset!!.width + e.point.x).toInt().coerceIn(0, (width - currentTarget!!.size.width).toInt())
+            currentTarget!!.position.y = (targetOffset!!.height + e.point.y).toInt().coerceIn(0, (height - currentTarget!!.size.height).toInt())
+            repaint()
+        }
 
-                override fun mouseReleased(e: MouseEvent?) {
-                    currentTarget = null
-                }
-            })
 
-            addMouseMotionListener(object : MouseMotionListener {
-                override fun mouseDragged(e: MouseEvent?) {
-                    currentTarget ?: return
-                    e ?: return
-                    currentTarget!!.position.x = (targetOffset!!.width + e.point.x).toInt().coerceIn(0, (thisRef.width - currentTarget!!.size.width).toInt())
-                    currentTarget!!.position.y = (targetOffset!!.height + e.point.y).toInt().coerceIn(0, (thisRef.height - currentTarget!!.size.height).toInt())
-                    thisRef.repaint()
-                }
+        override fun mousePressed(e: MouseEvent?) {
+            e ?: return
+            currentTarget = targets.firstOrNull { it.within(e) }
+            if (currentTarget != null) {
+                targetOffset = Size((currentTarget!!.position.x - e.point.x).toDouble(), (currentTarget!!.position.y - e.point.y).toDouble())
+            }
+        }
 
-                override fun mouseMoved(e: MouseEvent?) {
-                }
-
-            })
+        override fun mouseReleased(e: MouseEvent?) {
+            currentTarget = null
         }
 
         override fun paint(g: Graphics?) {
             val g2d = g as Graphics2D
             g2d.color = Color.LIGHT_GRAY
             g2d.color = UIManager.getColor("Panel.background")
-            g2d.fillRect(0, 0, thisRef.width, thisRef.height)
+            g2d.fillRect(0, 0, width, height)
             g2d.color = Color.RED
-            targets.forEach{g2d.fillRect(it.position.x, it.position.y, it.size.width.toInt(), it.size.height.toInt())}
+            targets.forEach { g2d.fillRect(it.position.x, it.position.y, it.size.width.toInt(), it.size.height.toInt()) }
         }
+
+        override fun mouseClicked(e: MouseEvent?) {}
+        override fun mouseEntered(e: MouseEvent?) {}
+        override fun mouseExited(e: MouseEvent?) {}
+        override fun mouseMoved(e: MouseEvent?) {}
+
     }
 
 }

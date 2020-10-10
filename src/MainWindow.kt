@@ -4,7 +4,7 @@ import java.awt.Dimension
 import java.awt.GridBagLayout
 import javax.swing.JFrame
 
-class MainWindow: Window() {
+class MainWindow : Window() {
 
     val navigationController = NavigationController(this)
 
