@@ -1,20 +1,20 @@
-package Auto
+package auto
 
-import Extensions.changeListener
-import Extensions.setFilter
-import GameProperties.AllianceColor
-import MVC.ViewController
-import Robot.Robot
-import Robot.RobotCreationVC
 import autos
+import extensions.changeListener
+import extensions.setFilter
+import gameProperties.AllianceColor
+import mvc.ViewController
+import robot.RobotCreationVC
 import robots
-import java.awt.*
+import java.awt.Dimension
+import java.awt.GridBagLayout
 import java.awt.event.ItemEvent
 import java.text.NumberFormat
 import javax.swing.*
 import javax.swing.text.NumberFormatter
 
-class AutoCreationVC: ViewController() {
+class AutoCreationVC : ViewController() {
 
     private val autoName = JTextField()
     private val robotDropDown: JComboBox<String> = JComboBox()
@@ -28,7 +28,7 @@ class AutoCreationVC: ViewController() {
         subscribeToModelAndCall(robots) {
             val prevSelection = robotDropDown.selectedItem
             robotDropDown.removeAllItems()
-            robots.robots.forEach{robotDropDown.addItem(it.name)}
+            robots.robots.forEach { robotDropDown.addItem(it.name) }
             robotDropDown.addItem("+ New Robot")
             robotDropDown.selectedItem = prevSelection
         }
@@ -49,8 +49,8 @@ class AutoCreationVC: ViewController() {
         gbcLabelAt(0, 1, "Robot:")
 
         view.add(robotDropDown, createGbc(1, 1, width = 2))
-        robotDropDown.addItemListener{
-            if(it.stateChange == ItemEvent.SELECTED && (it.item as String) == "+ New Robot") {
+        robotDropDown.addItemListener {
+            if (it.stateChange == ItemEvent.SELECTED && (it.item as String) == "+ New Robot") {
                 robotDropDown.selectedItem = null
 //                robots.add(Robot("Fred: "))
                 navController!!.push(RobotCreationVC())
@@ -83,7 +83,7 @@ class AutoCreationVC: ViewController() {
     }
 
     private fun createAuto() {
-        if(autoName.text in autos.autos.map{it.name}) {
+        if (autoName.text in autos.autos.map { it.name }) {
             JOptionPane.showMessageDialog(null,
                     "That auto name ${autoName.text} is already being used.",
                     "Error", JOptionPane.ERROR_MESSAGE)
@@ -92,7 +92,7 @@ class AutoCreationVC: ViewController() {
 
         val newAuto = Auto(autoName.text,
                 robotDropDown.selectedItem as String,
-                if(redRB.isSelected) AllianceColor.RED else AllianceColor.BLUE,
+                if (redRB.isSelected) AllianceColor.RED else AllianceColor.BLUE,
                 expectedScore.text.toIntOrNull()
         )
 
@@ -106,9 +106,9 @@ class AutoCreationVC: ViewController() {
     }
 
     private fun checkSubmittable(): Boolean {
-        if(autoName.text.isEmpty()) return false
-        if(robotDropDown.selectedItem == null) return false
-        if(buttonGroup.selection == null) return false
+        if (autoName.text.isEmpty()) return false
+        if (robotDropDown.selectedItem == null) return false
+        if (buttonGroup.selection == null) return false
 
         return true
     }
@@ -118,6 +118,6 @@ class AutoCreationVC: ViewController() {
 class NumberFormatter2(integerInstance: NumberFormat) : NumberFormatter() {
 
     override fun stringToValue(text: String?): Any? {
-        return if(text != null) super.stringToValue(text) else null
+        return if (text != null) super.stringToValue(text) else null
     }
 }

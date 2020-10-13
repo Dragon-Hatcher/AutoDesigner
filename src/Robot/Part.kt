@@ -1,5 +1,0 @@
-package Robot
-
-class Part {
-
-}

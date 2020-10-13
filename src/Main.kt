@@ -1,13 +1,18 @@
-import Robot.RobotsModel
-import Auto.AutoCreationVC
-import Auto.AutosModel
-import Robot.RobotCreationVC
-import javax.swing.JFrame
+import auto.AutoCreationVC
+import auto.AutosModel
+import robot.RobotsModel
+import robot.parts.loadParts
+import java.io.File
+
+val res = File("res")
+
+val parts = loadParts()
 
 var robots = RobotsModel()
 var autos = AutosModel()
 
 fun main() {
+    parts.forEach { println(it) }
 
     val window = MainWindow()
     window.navigationController.push(AutoCreationVC())

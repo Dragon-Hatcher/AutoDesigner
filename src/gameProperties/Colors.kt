@@ -1,4 +1,4 @@
-package GameProperties
+package gameProperties
 
 enum class AllianceColor {
     RED, BLUE

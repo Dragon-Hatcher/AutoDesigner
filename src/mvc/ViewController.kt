@@ -1,4 +1,4 @@
-package MVC
+package mvc
 
 import java.awt.GridBagConstraints
 import java.awt.Insets

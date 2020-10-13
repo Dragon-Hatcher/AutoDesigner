@@ -1,8 +1,8 @@
-package MVC
+package mvc
 
 import javax.swing.JPanel
 
-class NavigationController(private val frameDelegate: FrameDelegate? = null): ViewController() {
+class NavigationController(private val frameDelegate: FrameDelegate? = null) : ViewController() {
 
     private val viewControllers: MutableList<ViewController> = mutableListOf()
 
