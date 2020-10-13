@@ -16,7 +16,7 @@ var robots = RobotsModel()
 var autos = AutosModel()
 
 fun main() {
-//    parts.forEach { println(it) }
+
 
 //    FlatLightLaf.install()
     FlatDarculaLaf.install()
