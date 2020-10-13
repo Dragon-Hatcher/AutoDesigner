@@ -21,10 +21,14 @@ class AutoCreationVC : ViewController() {
     private val redRB = JRadioButton("Red")
     private val blueRB = JRadioButton("Blue")
     private val buttonGroup = ButtonGroup().also { it.add(redRB); it.add(blueRB) }
-    private val expectedScore = JTextField()
+    private val expectedScore = JSpinner(SpinnerNumberModel(0, 0, Int.MAX_VALUE, 1))
     private val createButton = JButton("Create")
 
     init {
+
+//        autoName.putClientProperty("JComponent.outline", "error")
+//        autoName.toolTipText = "Name already in use"
+
         subscribeToModelAndCall(robots) {
             val prevSelection = robotDropDown.selectedItem
             robotDropDown.removeAllItems()
@@ -68,10 +72,9 @@ class AutoCreationVC : ViewController() {
         view.add(blueRB, createGbc(2, 2))
 
         //expected points
-        expectedScore.setFilter { it.isBlank() || it.toIntOrNull() != null }
-
         gbcLabelAt(0, 3, "Expected Points:")
 
+        expectedScore
         view.add(expectedScore, createGbc(1, 3, width = 2))
 
         //submit button
@@ -93,7 +96,7 @@ class AutoCreationVC : ViewController() {
         val newAuto = Auto(autoName.text,
                 robotDropDown.selectedItem as String,
                 if (redRB.isSelected) AllianceColor.RED else AllianceColor.BLUE,
-                expectedScore.text.toIntOrNull()
+                expectedScore.componentCount
         )
 
         println(newAuto)
@@ -113,11 +116,4 @@ class AutoCreationVC : ViewController() {
         return true
     }
 
-}
-
-class NumberFormatter2(integerInstance: NumberFormat) : NumberFormatter() {
-
-    override fun stringToValue(text: String?): Any? {
-        return if (text != null) super.stringToValue(text) else null
-    }
 }
