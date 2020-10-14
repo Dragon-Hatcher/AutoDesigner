@@ -1,12 +1,12 @@
-import auto.Auto
 import auto.AutoCreationVC
 import auto.AutosModel
 import com.formdev.flatlaf.FlatDarculaLaf
-import gameProperties.AllianceColor
-import robot.Robot
+import com.formdev.flatlaf.FlatLightLaf
+import robot.RobotCreationVC
 import robot.RobotsModel
 import robot.parts.loadParts
 import java.io.File
+import javax.swing.UIManager
 
 val res = File("res")
 
@@ -16,11 +16,11 @@ var robots = RobotsModel()
 var autos = AutosModel()
 
 fun main() {
+//    parts.forEach { println(it) }
+
+//    FlatLightLaf.install()
     FlatDarculaLaf.install()
     val window = MainWindow()
-
-    autos.add(Auto("test", "fred", AllianceColor.BLUE, null))
-
     window.navigationController.push(AutoCreationVC())
 //    window.navigationController.push(RobotCreationVC())
 
