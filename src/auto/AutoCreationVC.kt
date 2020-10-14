@@ -28,9 +28,6 @@ class AutoCreationVC : ViewController() {
 
     init {
 
-//        autoName.putClientProperty("JComponent.outline", "error")
-//        autoName.toolTipText = "Name already in use"
-
         subscribeToModelAndCall(robots) {
             val prevSelection = robotDropDown.selectedItem
             robotDropDown.removeAllItems()
