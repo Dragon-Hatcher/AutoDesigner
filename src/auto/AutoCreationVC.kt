@@ -1,8 +1,10 @@
 package auto
 
 import autos
+import extensions.WarningType
 import extensions.changeListener
 import extensions.setFilter
+import extensions.setWarning
 import gameProperties.AllianceColor
 import mvc.ViewController
 import robot.RobotCreationVC
@@ -45,6 +47,13 @@ class AutoCreationVC : ViewController() {
 
         autoName.preferredSize = Dimension(300, autoName.preferredSize.height)
         autoName.changeListener {
+            if (autoName.text in autos.autos.map { it.name }) {
+                autoName.setWarning(WarningType.ERROR)
+                autoName.toolTipText = "That name is already in use."
+            } else {
+                autoName.setWarning(WarningType.NONE)
+                autoName.toolTipText = null
+            }
             updateButton()
         }
         view.add(autoName, createGbc(1, 0, width = 2))
@@ -108,12 +117,13 @@ class AutoCreationVC : ViewController() {
         createButton.isEnabled = checkSubmittable()
     }
 
-    private fun checkSubmittable(): Boolean {
-        if (autoName.text.isEmpty()) return false
-        if (robotDropDown.selectedItem == null) return false
-        if (buttonGroup.selection == null) return false
-
-        return true
-    }
+    private fun checkSubmittable() =
+            when {
+                autoName.text.isEmpty() -> false
+                autoName.text in autos.autos.map { it.name } -> false
+                robotDropDown.selectedItem == null -> false
+                buttonGroup.selection == null -> false
+                else -> true
+            }
 
 }

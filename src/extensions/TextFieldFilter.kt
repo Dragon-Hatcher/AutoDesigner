@@ -1,17 +1,14 @@
 package extensions
 
+import javax.swing.JComponent
 import javax.swing.JTextField
 import javax.swing.text.*
 
-fun JTextField.setFilter(warnType: String? = null, test: (String) -> Boolean) {
-    (this.document as PlainDocument).documentFilter = TextFieldFilter(test, this, warnType)
+fun JTextField.setFilter(test: (String) -> Boolean) {
+    (this.document as PlainDocument).documentFilter = TextFieldFilter(test)
 }
 
-internal class TextFieldFilter(val test: (String) -> Boolean, val myTextField: JTextField, val possibleError: String?) : DocumentFilter() {
-
-    fun warn() {
-        myTextField.putClientProperty("JComponent.outline", possibleError)
-    }
+internal class TextFieldFilter(val test: (String) -> Boolean) : DocumentFilter() {
 
     @Throws(BadLocationException::class)
     override fun insertString(fb: FilterBypass, offset: Int, string: String?,
@@ -24,7 +21,6 @@ internal class TextFieldFilter(val test: (String) -> Boolean, val myTextField: J
         if (test(sb.toString())) {
             super.insertString(fb, offset, string, attr)
         } else {
-            warn()
         }
     }
 
@@ -39,7 +35,6 @@ internal class TextFieldFilter(val test: (String) -> Boolean, val myTextField: J
         if (test(sb.toString())) {
             super.replace(fb, offset, length, text, attrs)
         } else {
-            warn()
         }
     }
 
@@ -53,7 +48,16 @@ internal class TextFieldFilter(val test: (String) -> Boolean, val myTextField: J
         if (test(sb.toString())) {
             super.remove(fb, offset, length)
         } else {
-            warn()
         }
     }
+}
+
+enum class WarningType(val id: String) {
+    NONE(""),
+    WARNING("warning"),
+    ERROR("error"),
+}
+
+fun JComponent.setWarning(type: WarningType) {
+    this.putClientProperty("JComponent.outline", type.id)
 }
