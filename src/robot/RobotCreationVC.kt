@@ -36,7 +36,8 @@ class RobotCreationVC : ViewController(), MouseListener {
         val button = JButton("Create")
         button.addActionListener {
             robots.add(Robot(robotName.text))
-            navController?.pop()
+            println(parentVC)
+            parentVC?.removeFromContext(this)
         }
         optionsView.add(button, createGbc(0, 1, width = 2))
 

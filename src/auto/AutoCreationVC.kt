@@ -3,18 +3,16 @@ package auto
 import autos
 import extensions.WarningType
 import extensions.changeListener
-import extensions.setFilter
 import extensions.setWarning
 import gameProperties.AllianceColor
+import icons
 import mvc.ViewController
 import robot.RobotCreationVC
 import robots
 import java.awt.Dimension
 import java.awt.GridBagLayout
 import java.awt.event.ItemEvent
-import java.text.NumberFormat
 import javax.swing.*
-import javax.swing.text.NumberFormatter
 
 class AutoCreationVC : ViewController() {
 
@@ -27,7 +25,6 @@ class AutoCreationVC : ViewController() {
     private val createButton = JButton("Create")
 
     init {
-
         subscribeToModelAndCall(robots) {
             val prevSelection = robotDropDown.selectedItem
             robotDropDown.removeAllItems()
@@ -62,8 +59,7 @@ class AutoCreationVC : ViewController() {
         robotDropDown.addItemListener {
             if (it.stateChange == ItemEvent.SELECTED && (it.item as String) == "+ New Robot") {
                 robotDropDown.selectedItem = null
-//                robots.add(Robot("Fred: "))
-                navController!!.push(RobotCreationVC())
+                parentVC!!.addToContext(RobotCreationVC())
             }
             updateButton()
         }
@@ -107,7 +103,7 @@ class AutoCreationVC : ViewController() {
 
         println(newAuto)
         autos.add(newAuto)
-        navController?.pop()
+        parentVC?.removeFromContext(this)
     }
 
     private fun updateButton() {

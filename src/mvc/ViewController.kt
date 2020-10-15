@@ -6,9 +6,10 @@ import javax.swing.BorderFactory
 import javax.swing.JLabel
 import javax.swing.JPanel
 
-abstract class ViewController() {
+abstract class ViewController(parentWindow: Window? = null, var parentVC: ViewController? = null) {
 
-    var navController: NavigationController? = null
+    var parentWindow: Window? = parentWindow
+        get() = if (field == null) parentVC?.parentWindow else field
     var view: JPanel = JPanel()
     private val models: MutableList<Model> = mutableListOf()
 
@@ -57,6 +58,14 @@ abstract class ViewController() {
         gbc.weightx = weightX ?: if (x == 0) 0.1 else 1.0
         gbc.weighty = weightY
         return gbc
+    }
+
+    open fun addToContext(viewController: ViewController) {
+        this.parentVC?.addToContext(viewController)
+    }
+
+    open fun removeFromContext(viewController: ViewController) {
+        this.parentVC?.removeFromContext(viewController)
     }
 
 }
