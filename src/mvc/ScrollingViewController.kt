@@ -8,15 +8,15 @@ import javax.swing.JScrollPane
 
 open class ScrollingViewController(parentWindow: Window? = null, parentVC: ViewController? = null) : ViewController(parentWindow, parentVC) {
 
-    private val scrollView = JPanel()
+    val scrollView = JPanel()
     private val scrollPane = JScrollPane(scrollView)
 
     init {
         scrollView.layout = GridBagLayout()
 
-        view.preferredSize = Dimension(1000, 500)
         view.layout = BorderLayout()
         scrollPane.border = null
+        scrollPane.verticalScrollBar.unitIncrement = 16
         view.add(scrollPane, BorderLayout.CENTER)
     }
 

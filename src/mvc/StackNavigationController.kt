@@ -1,7 +1,6 @@
 package mvc
 
 import extensions.packUp
-import java.awt.Color
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import java.awt.Insets
@@ -9,20 +8,8 @@ import javax.swing.JPanel
 
 class StackNavigationController(parentWindow: Window? = null, parentVC: ViewController? = null) : ViewController(parentWindow, parentVC) {
 
-    companion object {
-        val gbcFill = GridBagConstraints()
-        val gbcNoFill = GridBagConstraints()
-    }
-
     init {
         view.layout = GridBagLayout()
-        gbcFill.fill = GridBagConstraints.BOTH
-        gbcFill.weightx = 1.0
-        gbcFill.weighty = 1.0
-        gbcFill.insets = Insets(10, 10, 10, 10)
-        gbcNoFill.weightx = 1.0
-        gbcNoFill.weighty = 1.0
-        gbcNoFill.insets = Insets(10, 10, 10, 10)
     }
 
 
@@ -32,7 +19,14 @@ class StackNavigationController(parentWindow: Window? = null, parentVC: ViewCont
         viewController.parentVC = this
         viewControllers.add(viewController)
         view.removeAll()
-        view.add(viewController.view, if (viewController.fillSpace) gbcFill else gbcNoFill)
+
+        val gbc = GridBagConstraints()
+        gbc.weightx = 1.0
+        gbc.weighty = 1.0
+        gbc.fill = if (viewController.fillSpace) GridBagConstraints.BOTH else GridBagConstraints.NONE
+        gbc.insets = viewController.navControllerPadding
+        view.add(viewController.view, gbc)
+
         parentWindow?.viewUpdated()
     }
 

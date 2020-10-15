@@ -3,18 +3,21 @@ package mvc
 import java.awt.GridBagConstraints
 import java.awt.Insets
 import javax.swing.BorderFactory
+import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
 
 abstract class ViewController(parentWindow: Window? = null, var parentVC: ViewController? = null) {
 
     open val fillSpace = false
+    open val navControllerPadding = Insets(10, 10, 10, 10)
+
     var parentWindow: Window? = parentWindow
         get() = if (field == null) parentVC?.parentWindow else field
     var view: JPanel = JPanel()
     private val models: MutableList<Model> = mutableListOf()
 
-    protected fun paddedTitle(title: String, padding: Int = 10, view: JPanel = this.view) {
+    protected fun paddedTitle(title: String, padding: Int = 10, view: JComponent = this.view) {
         view.border = BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder(title),
                 BorderFactory.createEmptyBorder(padding, padding, padding, padding)
@@ -37,14 +40,14 @@ abstract class ViewController(parentWindow: Window? = null, var parentVC: ViewCo
         models.forEach { it.removeListener(this) }
     }
 
-    protected fun gbcLabelAt(x: Int, y: Int, labelString: String, view: JPanel = this.view): JLabel {
+    protected open fun gbcLabelAt(x: Int, y: Int, labelString: String, view: JPanel = this.view): JLabel {
         val gbc = createGbc(x, y)
         val label = JLabel(labelString)
         view.add(label, gbc)
         return label
     }
 
-    protected fun createGbc(x: Int, y: Int, width: Int = 1, height: Int = 1, weightX: Double? = null, weightY: Double = 1.0): GridBagConstraints {
+    protected fun createGbc(x: Int, y: Int, width: Int = 1, height: Int = 1, weightX: Double? = null, weightY: Double = 1.0, fill: Int? = null): GridBagConstraints {
         val westInserts = Insets(5, 0, 5, 5)
         val eastInserts = Insets(5, 5, 5, 0)
 
@@ -54,7 +57,7 @@ abstract class ViewController(parentWindow: Window? = null, var parentVC: ViewCo
         gbc.gridwidth = width
         gbc.gridheight = height
         gbc.anchor = if (x == 0) GridBagConstraints.WEST else GridBagConstraints.EAST
-        gbc.fill = if (x == 0) GridBagConstraints.BOTH else GridBagConstraints.HORIZONTAL
+        gbc.fill = fill ?: if (x == 0) GridBagConstraints.BOTH else GridBagConstraints.HORIZONTAL
         gbc.insets = if (x == 0) westInserts else eastInserts
         gbc.weightx = weightX ?: if (x == 0) 0.1 else 1.0
         gbc.weighty = weightY

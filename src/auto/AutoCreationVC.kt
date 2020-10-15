@@ -5,7 +5,6 @@ import extensions.WarningType
 import extensions.changeListener
 import extensions.setWarning
 import gameProperties.AllianceColor
-import icons
 import mvc.ViewController
 import robot.RobotCreationVC
 import robots
