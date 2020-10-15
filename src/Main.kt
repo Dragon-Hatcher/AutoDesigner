@@ -3,7 +3,9 @@ import auto.AutosModel
 import com.formdev.flatlaf.FlatDarculaLaf
 import robot.RobotsModel
 import robot.parts.loadParts
+import utils.loadIcons
 import java.io.File
+import javax.swing.Icon
 import javax.swing.UIManager
 
 val res = File("res")
@@ -13,44 +15,14 @@ val parts = loadParts()
 var robots = RobotsModel()
 var autos = AutosModel()
 
-val icons = listOf(
-        "CheckBox.icon",
-        "CheckBoxMenuItem.arrowIcon",
-        "CheckBoxMenuItem.checkIcon",
-        "FileChooser.detailsViewIcon",
-        "FileChooser.homeFolderIcon",
-        "FileChooser.listViewIcon",
-        "FileChooser.newFolderIcon",
-        "FileChooser.upFolderIcon",
-        "FileView.computerIcon",
-        "FileView.directoryIcon",
-        "FileView.fileIcon",
-        "FileView.floppyDriveIcon",
-        "FileView.hardDriveIcon",
-        "InternalFrame.closeIcon",
-        "InternalFrame.iconifyIcon",
-        "InternalFrame.maximizeIcon",
-        "InternalFrame.minimizeIcon",
-        "Menu.arrowIcon",
-        "MenuItem.arrowIcon",
-        "OptionPane.errorIcon",
-        "OptionPane.informationIcon",
-        "OptionPane.questionIcon",
-        "OptionPane.warningIcon",
-        "RadioButton.icon",
-        "RadioButtonMenuItem.arrowIcon",
-        "RadioButtonMenuItem.checkIcon",
-        "Table.ascendingSortIcon",
-        "Table.descendingSortIcon",
-        "Tree.closedIcon",
-        "Tree.collapsedIcon",
-        "Tree.expandedIcon",
-        "Tree.leafIcon",
-        "Tree.openIcon",
-)
+lateinit var icons: Map<String, Icon>
 
 fun main() {
     FlatDarculaLaf.install()
+
+    icons = loadIcons()
+    icons.forEach { t, u -> println(t) }
+
     val window = MainWindow()
 
     window.navigationController.addToContext(AutoCreationVC())

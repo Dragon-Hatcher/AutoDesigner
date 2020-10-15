@@ -14,6 +14,7 @@ import java.awt.GridBagLayout
 import java.awt.event.ItemEvent
 import javax.swing.*
 
+
 class AutoCreationVC : ViewController() {
 
     private val autoName = JTextField()
@@ -56,6 +57,7 @@ class AutoCreationVC : ViewController() {
         gbcLabelAt(0, 1, "Robot:")
 
         view.add(robotDropDown, createGbc(1, 1, width = 2))
+
         robotDropDown.addItemListener {
             if (it.stateChange == ItemEvent.SELECTED && (it.item as String) == "+ New Robot") {
                 robotDropDown.selectedItem = null
@@ -85,6 +87,8 @@ class AutoCreationVC : ViewController() {
             createAuto()
         }
         view.add(createButton, createGbc(0, 4, width = 3))
+
+        icons.forEach { (t, u) -> view.add(JButton(u)) }
     }
 
     private fun createAuto() {
