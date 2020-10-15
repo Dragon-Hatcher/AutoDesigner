@@ -1,6 +1,7 @@
 import auto.AutoCreationVC
 import auto.AutosModel
 import com.formdev.flatlaf.FlatDarculaLaf
+import controller.ControllerCreationVC
 import robot.RobotsModel
 import robot.parts.loadParts
 import utils.loadIcons
@@ -21,11 +22,11 @@ fun main() {
     FlatDarculaLaf.install()
 
     icons = loadIcons()
-    icons.forEach { t, u -> println(t) }
 
     val window = MainWindow()
 
-    window.navigationController.addToContext(AutoCreationVC())
+    window.navigationController.addToContext(ControllerCreationVC())
+//    window.navigationController.addToContext(AutoCreationVC())
 //    window.navigationController.push(RobotCreationVC())
 
 }

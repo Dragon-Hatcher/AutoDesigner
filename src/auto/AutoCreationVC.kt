@@ -88,7 +88,7 @@ class AutoCreationVC : ViewController() {
         }
         view.add(createButton, createGbc(0, 4, width = 3))
 
-        icons.forEach { (t, u) -> view.add(JButton(u)) }
+//        icons.forEach { (t, u) -> view.add(JButton(u)) }
     }
 
     private fun createAuto() {

@@ -67,7 +67,6 @@ fun loadIcons(): Map<String, Icon> {
 }
 
 fun changeColor(image: BufferedImage, foreground: Color): Image {
-    println(foreground)
     val time = System.nanoTime()
     val width = image.width
     val height = image.height

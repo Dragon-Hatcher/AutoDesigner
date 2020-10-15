@@ -8,6 +8,7 @@ import javax.swing.JPanel
 
 abstract class ViewController(parentWindow: Window? = null, var parentVC: ViewController? = null) {
 
+    open val fillSpace = false
     var parentWindow: Window? = parentWindow
         get() = if (field == null) parentVC?.parentWindow else field
     var view: JPanel = JPanel()
