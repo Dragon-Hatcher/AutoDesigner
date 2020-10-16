@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="KotlinJavaRuntime">
+    <archive path="C:/Users/danie/AppData/Roaming/JetBrains/IdeaIC2020.2/plugins/Kotlin/kotlinc/lib/kotlin-stdlib.jar" />
+    <archive path="C:/Users/danie/AppData/Roaming/JetBrains/IdeaIC2020.2/plugins/Kotlin/kotlinc/lib/kotlin-reflect.jar" />
+    <archive path="C:/Users/danie/AppData/Roaming/JetBrains/IdeaIC2020.2/plugins/Kotlin/kotlinc/lib/kotlin-test.jar" />
+    <archive path="C:/Users/danie/AppData/Roaming/JetBrains/IdeaIC2020.2/plugins/Kotlin/kotlinc/lib/kotlin-stdlib-jdk7.jar" />
+    <archive path="C:/Users/danie/AppData/Roaming/JetBrains/IdeaIC2020.2/plugins/Kotlin/kotlinc/lib/kotlin-stdlib-jdk8.jar" />
+  </library>
+</eclipse-userlibraries>
+

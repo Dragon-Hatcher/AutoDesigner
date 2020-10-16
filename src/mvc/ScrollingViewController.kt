@@ -20,7 +20,7 @@ open class ScrollingViewController(parentWindow: Window? = null, parentVC: ViewC
         view.add(scrollPane, BorderLayout.CENTER)
     }
 
-    protected fun gbcLabelAt(x: Int, y: Int, labelString: String) = super.gbcLabelAt(x, y, labelString, view = scrollView)
+    protected fun gbcLabelAt(x: Int, y: Int, labelString: String) = super.gbcLabelAt(x, y, labelString, view = scrollView, null)
     protected fun paddedTitle(title: String, padding: Int = 10) {
         super.paddedTitle(title, padding, scrollPane)
     }

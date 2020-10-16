@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf
 import controller.ControllerCreationVC
 import controller.ControllerType
 import controller.ControllersModel
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
 import org.fife.ui.rsyntaxtextarea.Theme
 import robot.RobotsModel
 import robot.parts.loadParts
@@ -11,6 +12,7 @@ import utils.loadIcons
 import java.awt.Font
 import java.io.File
 import javax.swing.Icon
+import javax.swing.JEditorPane
 import javax.swing.UIManager
 
 val resFolder = File("res")
@@ -36,6 +38,9 @@ fun main() {
     } else {
         FlatIntelliJLaf.install()
     }
+
+    //do this at the start for faster load
+    RSyntaxTextArea().font = jetbrainsMono
 
     println(UIManager.getColor("Panel.foreground"))
 

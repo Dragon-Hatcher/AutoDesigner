@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/KotlinJavaRuntime"/>
+	<classpathentry kind="var" path="USER_HOME/Downloads/flatlaf-0.43.jar"/>
+	<classpathentry kind="var" path="USER_HOME/Downloads/rsyntaxtextarea-3.0.6/rsyntaxtextarea-3.0.6/rsyntaxtextarea-3.0.6.jar"/>
+	<classpathentry kind="output" path="out/production/AutoDesigner"/>
+</classpath>
