@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE RSyntaxTheme SYSTEM "theme.dtd">
+
+<!--
+	Theme that mimics IntelliJ IDEA's defaults.
+	See theme.dtd and org.fife.ui.rsyntaxtextarea.Theme for more information.
+-->
+<RSyntaxTheme version="1.0">
+
+   <!-- Omitting baseFont will use a system-appropriate monospaced. -->
+   <!--<baseFont family="..." size="13"/>-->
+
+   <!--  General editor colors. -->
+   <background color="2b2b2b"/>                                                          <!-- done -->
+   <caret color="bbbbbb"/>                                                               <!-- done -->
+   <selection fg="ffffff" bg="526da5"/>                                                  <!-- not done -->
+   <currentLineHighlight color="323232" fade="false"/>                                   <!-- done -->
+   <marginLine fg="555555"/>                                                             <!-- not done -->
+   <markAllHighlight color="ccccff"/>                                                    <!-- not done -->
+   <markOccurrencesHighlight color="ccccff" border="false"/>                             <!-- not done -->
+   <matchedBracket fg="ffee2a" bg="3b514d" highlightBoth="true" animate="false"/>        <!-- done -->
+   <hyperlinks fg="0000ff"/>                                                             <!-- not done -->
+   <secondaryLanguages>
+      <language index="1" bg="fff0cc"/>                                                  <!-- not done -->
+      <language index="2" bg="dafeda"/>                                                  <!-- not done -->
+      <language index="3" bg="ffe0f0"/>                                                  <!-- not done -->
+   </secondaryLanguages>
+
+   <!-- Gutter styling. -->
+   <gutterBorder color="555555"/>                                                        <!-- done -->
+   <lineNumbers fg="5e6164"/>                                                            <!-- done -->
+   <foldIndicator fg="555555" iconBg="2b2b2b"/>                                          <!-- done -->
+   <iconRowHeader activeLineRange="ff0000"/>                                             <!-- not done -->
+
+   <!-- Syntax tokens. -->
+   <tokenStyles>
+      <style token="IDENTIFIER" fg="9876aa"/>                                            <!-- done -->
+      <style token="RESERVED_WORD" fg="cc7832" bold="true"/>                             <!-- done -->
+      <style token="RESERVED_WORD_2" fg="cc7832" bold="true"/>                           <!-- done -->
+      <style token="ANNOTATION" fg="b3a828"/>                                            <!-- done -->
+      <style token="COMMENT_DOCUMENTATION" fg="808080" italic="true"/>                   <!-- not done -->
+      <style token="COMMENT_EOL" fg="808080" italic="true"/>                             <!-- done -->
+      <style token="COMMENT_MULTILINE" fg="57864c" italic="true"/>                       <!-- done -->
+      <style token="COMMENT_KEYWORD" fg="989755" bold="true" underline="true" italic="true"/>  <!-- done -->
+      <style token="COMMENT_MARKUP" fg="808080" bg="e2ffe2" italic="true"/>              <!-- not done -->
+      <style token="DATA_TYPE" fg="cc7832" bold="true"/>                                 <!-- done -->
+      <style token="FUNCTION" fg="ffc66d"/>                                              <!-- not done -->
+      <style token="LITERAL_BOOLEAN" fg="cc7832" bold="true"/>                           <!-- done -->
+      <style token="LITERAL_NUMBER_DECIMAL_INT" fg="5191ab"/>                            <!-- done -->
+      <style token="LITERAL_NUMBER_FLOAT" fg="5191ab"/>                                  <!-- done -->
+      <style token="LITERAL_NUMBER_HEXADECIMAL" fg="5191ab"/>                            <!-- done -->
+      <style token="LITERAL_STRING_DOUBLE_QUOTE" fg="57864c" bold="true"/>               <!-- done -->
+      <style token="LITERAL_CHAR" fg="57864c" bold="true"/>                              <!-- done -->
+      <style token="LITERAL_BACKQUOTE" fg="008000" bold="true"/>                         <!-- not done -->
+      <style token="MARKUP_TAG_DELIMITER" fg="bbbbbb" bold="true"/>                      <!-- done -->
+      <style token="MARKUP_TAG_NAME" fg="000080" bold="true"/>                           <!-- not done -->
+      <style token="MARKUP_TAG_ATTRIBUTE" fg="0000ff" bold="true"/>                      <!-- not done -->
+      <style token="MARKUP_TAG_ATTRIBUTE_VALUE" fg="008000" bold="true"/>                <!-- not done -->
+      <style token="MARKUP_COMMENT" fg="808080" italic="true"/>                           <!-- not done -->
+      <style token="MARKUP_DTD" fg="808080"/>                                             <!-- not done -->
+      <style token="MARKUP_PROCESSING_INSTRUCTION" fg="808080"/>                         <!-- not done -->
+      <style token="MARKUP_CDATA" fg="cc6600"/>                                           <!-- not done -->
+      <style token="MARKUP_CDATA_DELIMITER" fg="008080"/>                                 <!-- not done -->
+      <style token="MARKUP_ENTITY_REFERENCE" fg="008000"/>                                <!-- not done -->
+      <style token="OPERATOR" fg="bbbbbb"/>                                              <!-- done -->
+      <style token="PREPROCESSOR" fg="808080"/>                                          <!-- not done -->
+      <style token="REGEX" fg="008040"/>                                                 <!-- not done -->
+      <style token="SEPARATOR" fg="bbbbbb"/>                                             <!-- done -->
+      <style token="VARIABLE" fg="810ca8" bold="true"/>                                  <!-- not done -->
+      <style token="WHITESPACE" fg="bbbbbb"/>                                            <!-- not done -->
+
+      <style token="ERROR_IDENTIFIER" fg="ff0000"/>                                      <!-- not done -->
+      <style token="ERROR_NUMBER_FORMAT" fg="ff0000"/>                                   <!-- not done -->
+      <style token="ERROR_STRING_DOUBLE" fg="ff0000"/>                                   <!-- not done -->
+      <style token="ERROR_CHAR" fg="ff0000"/>                                            <!-- not done -->
+   </tokenStyles>
+
+</RSyntaxTheme>

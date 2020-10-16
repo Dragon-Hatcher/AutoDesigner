@@ -1,10 +1,10 @@
 package robot.parts
 
-import res
+import resFolder
 import java.io.File
 
 fun loadParts(): List<Part> {
-    val partsTXT = File(res, "parts.txt")
+    val partsTXT = File(resFolder, "parts.txt")
     val text = partsTXT.readText()
 
     val partLines = text.split("\n").filterNot { it.startsWith("|") }

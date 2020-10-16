@@ -1,6 +1,6 @@
 package utils
 
-import res
+import resFolder
 import java.awt.Color
 import java.awt.Image
 import java.awt.image.BufferedImage
@@ -48,7 +48,7 @@ val builtInIconNames = listOf(
 
 fun loadIcons(): Map<String, Icon> {
     //icons in the icons folder
-    val iconFolder = File(res, "icons")
+    val iconFolder = File(resFolder, "icons")
     val pngFolder = File(iconFolder, "png")
     val iconFiles = pngFolder.listFiles()!!
     val images = iconFiles.map { it.name.removeSuffix(".png") to ImageIO.read(it) }
