@@ -40,8 +40,8 @@ abstract class ViewController(parentWindow: Window? = null, var parentVC: ViewCo
         models.forEach { it.removeListener(this) }
     }
 
-    protected open fun gbcLabelAt(x: Int, y: Int, labelString: String, view: JPanel = this.view, weightX: Double? = null): JLabel {
-        val gbc = createGbc(x, y, weightX = weightX)
+    protected open fun gbcLabelAt(x: Int, y: Int, labelString: String, view: JPanel = this.view, weightX: Double? = null, width: Int = 1): JLabel {
+        val gbc = createGbc(x, y, weightX = weightX, width = width)
         val label = JLabel(labelString)
         view.add(label, gbc)
         return label

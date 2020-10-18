@@ -12,6 +12,6 @@ abstract class Model {
         listeners.remove(viewController)
     }
 
-    protected fun update() = listeners.forEach { it.value() }
+    fun update() = listeners.forEach { it.value() }
 
 }

@@ -8,6 +8,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
 import org.fife.ui.rsyntaxtextarea.Theme
 import robot.RobotsModel
 import robot.parts.loadParts
+import utils.convertToJavaName
 import utils.loadIcons
 import java.awt.Font
 import java.io.File
@@ -31,6 +32,13 @@ var controllers = ControllersModel()
 lateinit var icons: Map<String, Icon>
 
 var isDarkMode = true
+
+/*
+TODO must remember to set JAVA_HOME when installing application
+    -Windows:
+        Run in powershell with admin: setx JAVA_HOME "C:\Program Files\Java\jdk-13.0.2" /M
+        Then to launch: .\studio.bat --line 150 --column 10 C:\Users\danie\IdeaProjects\2020-FTC-UltimateGoal-master\TeamCode\src\main\java\org\firstinspires\ftc\teamcode\Autonomous\Auto_DriveByEncoder_Example.java
+ */
 
 fun main() {
     if (isDarkMode) {

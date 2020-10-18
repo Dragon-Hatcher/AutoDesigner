@@ -11,8 +11,14 @@ import mvc.ViewController
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import org.fife.ui.rtextarea.RTextScrollPane
+import utils.convertToJavaName
 import java.awt.*
+import java.awt.event.FocusEvent
+import java.awt.event.FocusListener
+import java.awt.event.MouseWheelEvent
+import java.awt.event.MouseWheelListener
 import javax.swing.*
+import javax.swing.border.*
 
 class ControllerCreationVC : ScrollingViewController() {
 
@@ -21,6 +27,8 @@ class ControllerCreationVC : ScrollingViewController() {
     private val nameField = JTextField()
 
     init {
+        scrollView.isFocusable = true
+
         paddedTitle("New Controller")
 
         //Name Label
@@ -49,9 +57,13 @@ class ControllerCreationVC : ScrollingViewController() {
         scrollView.add(JSeparator(), createGbc(0, 6, width = 2))
 
         //Methods
-        val methodsManager = MethodsManager()
+        val methodAddButton = JButton(icons["plus"])
 
         gbcLabelAt(0, 7, "Methods:")
+        scrollView.add(methodAddButton, createGbc(1, 7, fill = GridBagConstraints.NONE).also { it.anchor = GridBagConstraints.WEST })
+
+        val methodsManager = MethodsManager(methodAddButton)
+
         scrollView.add(methodsManager.view, createGbc(1, 8))
 
         //Dummy panel
@@ -61,7 +73,7 @@ class ControllerCreationVC : ScrollingViewController() {
 
     class ElectronicsAndControllersManager(eButton: JButton, cButton: JButton) : ViewController() {
 
-        private val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.")
+        private val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaName)
 
         var electronicsView = JPanel()
         var controllerView = JPanel()
@@ -190,29 +202,73 @@ class ControllerCreationVC : ScrollingViewController() {
 
     }
 
-    class MethodsManager : ViewController() {
+    class MethodsManager(addButton: JButton) : ViewController() {
+
+        val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate method names.", ::convertToJavaName)
+        val methods = mutableListOf<MethodCreate>()
+
         init {
+            addButton.addActionListener { add() }
+
             view.layout = GridBagLayout()
-            view.add(MethodCreate().view, createGbc(0, 1))
+            add()
         }
 
-        class MethodCreate : ViewController() {
+        fun add() {
+            val new = MethodCreate()
+            uniqueInsurer.add(new.nameLabel)
+            methods.add(new)
+            new.minusButton.addActionListener { remove(new) }
+            redraw()
+        }
+
+        fun remove(mc: MethodCreate) {
+            uniqueInsurer.remove(mc.nameLabel)
+            methods.remove(mc)
+            redraw()
+        }
+
+        fun redraw() {
+            view.removeAll()
+            methods.forEachIndexed { index, methodCreate -> view.add(methodCreate.view, createGbc(0, index).also { it.insets = Insets(10, 0, 10, 10) }) }
+            view.revalidate()
+        }
+
+        class MethodCreate : ViewController(), FocusListener {
+
+            val nameLabel = JTextField()
             val codeArea = RSyntaxTextArea(10, 0)
             val scrollArea = RTextScrollPane(codeArea)
+            val listeners = scrollArea.mouseWheelListeners
             val addButton = JButton(icons["plus"])
             val inputSelection = InputSelection(addButton)
+            val minusButton = JButton(icons["minus"])
 
             init {
+                view.border = BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(UIManager.getColor("Separator.foreground"), 3),
+                        BorderFactory.createEmptyBorder(10, 10, 10, 10))
+
                 view.layout = GridBagLayout()
 
+                //Name
+                gbcLabelAt(0, 0, "Method Name:")
+                nameLabel.preferredSize = Dimension(300, nameLabel.preferredSize.height)
+                view.add(nameLabel, createGbc(1, 0, fill = GridBagConstraints.NONE).also { it.anchor = GridBagConstraints.WEST })
+
+                //Remove
+                view.add(minusButton, createGbc(2, 0, fill = GridBagConstraints.NONE))
+
                 //Inputs
-                gbcLabelAt(0, 0, "Inputs:", weightX = 0.0)
-                view.add(addButton, createGbc(1, 0, fill = GridBagConstraints.NONE).also { it.anchor = GridBagConstraints.WEST })
-                view.add(inputSelection.view, createGbc(1, 1))
+                gbcLabelAt(0, 1, "Inputs:", weightX = 0.0)
+                view.add(addButton, createGbc(1, 1, fill = GridBagConstraints.NONE).also { it.anchor = GridBagConstraints.WEST })
+                view.add(inputSelection.view, createGbc(1, 2))
 
                 //Java code
-                gbcLabelAt(0, 2, "Implementation:", weightX = 0.0)
+                gbcLabelAt(0, 3, "Implementation:", weightX = 0.0)
 
+                scrollArea.mouseWheelListeners.forEach { scrollArea.removeMouseWheelListener(it) }
+                codeArea.addFocusListener(this)
                 codeArea.syntaxEditingStyle = SyntaxConstants.SYNTAX_STYLE_JAVA
                 codeArea.isCodeFoldingEnabled = true
                 codeArea.font = jetbrainsMono
@@ -221,16 +277,12 @@ class ControllerCreationVC : ScrollingViewController() {
                 val extraPanel = JPanel()
                 extraPanel.layout = BorderLayout()
                 extraPanel.add(scrollArea, BorderLayout.CENTER)
-                view.add(extraPanel, createGbc(0, 3, fill = GridBagConstraints.BOTH, width = 2, weightX = 1.0, weightY = 1.0))
-
-                //--------------------------------------------------------------
-                view.add(JSeparator(), createGbc(0, 4, width = 2))
-
+                view.add(extraPanel, createGbc(0, 4, fill = GridBagConstraints.BOTH, width = 3, weightX = 1.0, weightY = 1.0))
             }
 
             class InputSelection(addButton: JButton) : ViewController() {
 
-                val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.")
+                val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaName)
 
                 val inputTypeMenu = JPopupMenu()
                 val inputObjects: MutableList<ViewController> = mutableListOf()
@@ -329,7 +381,7 @@ class ControllerCreationVC : ScrollingViewController() {
 
                     class DropdownOptionManager : ViewController() {
 
-                        val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.")
+                        val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaName)
 
                         val addButton = JButton("Option", icons["plus"])
 
@@ -412,6 +464,15 @@ class ControllerCreationVC : ScrollingViewController() {
                     }
                 }
 
+            }
+
+            override fun focusGained(e: FocusEvent?) {
+                println("Here")
+                listeners.forEach { scrollArea.addMouseWheelListener(it) }
+            }
+
+            override fun focusLost(e: FocusEvent?) {
+                listeners.forEach { scrollArea.removeMouseWheelListener(it) }
             }
         }
 

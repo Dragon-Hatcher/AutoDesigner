@@ -9,7 +9,7 @@ import javax.swing.JScrollPane
 open class ScrollingViewController(parentWindow: Window? = null, parentVC: ViewController? = null) : ViewController(parentWindow, parentVC) {
 
     val scrollView = JPanel()
-    private val scrollPane = JScrollPane(scrollView)
+    protected val scrollPane = JScrollPane(scrollView)
 
     init {
         scrollView.layout = GridBagLayout()
@@ -20,7 +20,7 @@ open class ScrollingViewController(parentWindow: Window? = null, parentVC: ViewC
         view.add(scrollPane, BorderLayout.CENTER)
     }
 
-    protected fun gbcLabelAt(x: Int, y: Int, labelString: String) = super.gbcLabelAt(x, y, labelString, view = scrollView, null)
+    protected fun gbcLabelAt(x: Int, y: Int, labelString: String) = super.gbcLabelAt(x, y, labelString, view = scrollView, null, width = 1)
     protected fun paddedTitle(title: String, padding: Int = 10) {
         super.paddedTitle(title, padding, scrollPane)
     }
