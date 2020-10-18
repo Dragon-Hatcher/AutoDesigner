@@ -38,10 +38,10 @@
       <style token="RESERVED_WORD" fg="cc7832" bold="true"/>                             <!-- done -->
       <style token="RESERVED_WORD_2" fg="cc7832" bold="true"/>                           <!-- done -->
       <style token="ANNOTATION" fg="b3a828"/>                                            <!-- done -->
-      <style token="COMMENT_DOCUMENTATION" fg="808080" italic="true"/>                   <!-- not done -->
+      <style token="COMMENT_DOCUMENTATION" fg="57864c" italic="true"/>                   <!-- done -->
       <style token="COMMENT_EOL" fg="808080" italic="true"/>                             <!-- done -->
       <style token="COMMENT_MULTILINE" fg="57864c" italic="true"/>                       <!-- done -->
-      <style token="COMMENT_KEYWORD" fg="989755" bold="true" underline="true" italic="true"/>  <!-- done -->
+      <style token="COMMENT_KEYWORD" fg="629755" bold="true" underline="true" italic="true"/>  <!-- done -->
       <style token="COMMENT_MARKUP" fg="808080" bg="e2ffe2" italic="true"/>              <!-- not done -->
       <style token="DATA_TYPE" fg="cc7832" bold="true"/>                                 <!-- done -->
       <style token="FUNCTION" fg="ffc66d"/>                                              <!-- not done -->
