@@ -2,14 +2,14 @@ package mvc
 
 abstract class Model {
 
-    private val listeners: MutableMap<ViewController, () -> Unit> = HashMap()
+    private val listeners: MutableMap<Any, () -> Unit> = HashMap()
 
-    fun addListener(viewController: ViewController, updater: () -> Unit) {
-        listeners[viewController] = updater
+    fun addListener(listener: Any, updater: () -> Unit) {
+        listeners[listener] = updater
     }
 
-    fun removeListener(viewController: ViewController) {
-        listeners.remove(viewController)
+    fun removeListener(listener: Any) {
+        listeners.remove(listener)
     }
 
     fun update() = listeners.forEach { it.value() }

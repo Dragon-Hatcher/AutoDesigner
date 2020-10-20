@@ -3,6 +3,7 @@ package controller
 import controllers
 import electronics
 import extensions.TextFieldUniqueInsurer
+import extensions.changeListener
 import icons
 import ideaTheme
 import jetbrainsMono
@@ -11,37 +12,41 @@ import mvc.ViewController
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import org.fife.ui.rtextarea.RTextScrollPane
+import robot.parts.ElectronicType
 import utils.convertToJavaName
 import java.awt.*
 import java.awt.event.FocusEvent
 import java.awt.event.FocusListener
-import java.awt.event.MouseWheelEvent
-import java.awt.event.MouseWheelListener
 import javax.swing.*
-import javax.swing.border.*
 
-class ControllerCreationVC : ScrollingViewController() {
+class ControllerCreationVC(val controllerType: ControllerType = ControllerType()) : ScrollingViewController() {
 
     override val fillSpace = true
 
     private val nameField = JTextField()
+    val addEButton = JButton(icons["plus"])
+    val addCButton = JButton(icons["plus"])
+    val eAndCManager = ElectronicsAndControllersManager(controllerType, addEButton, addCButton)
 
     init {
         scrollView.isFocusable = true
 
         paddedTitle("New Controller")
 
+        subscribeToModelAndCall(controllerType) {
+            nameField.text = controllerType.name
+            controllerType.updateFile()
+        }
+
         //Name Label
         gbcLabelAt(0, 0, "Name:")
         scrollView.add(nameField, createGbc(1, 0))
+        nameField.changeListener {
+            controllerType.name = nameField.text
+        }
 
         //--------------------------------------------------------------
         scrollView.add(JSeparator(), createGbc(0, 1, width = 2))
-
-        //Electronics & Controllers
-        val addEButton = JButton(icons["plus"])
-        val addCButton = JButton(icons["plus"])
-        val eAndCManager = ElectronicsAndControllersManager(addEButton, addCButton)
 
         //Electronics
         gbcLabelAt(0, 2, "Electronics:")
@@ -71,7 +76,7 @@ class ControllerCreationVC : ScrollingViewController() {
 
     }
 
-    class ElectronicsAndControllersManager(eButton: JButton, cButton: JButton) : ViewController() {
+    class ElectronicsAndControllersManager(val controllerType: ControllerType, eButton: JButton, cButton: JButton) : ViewController() {
 
         private val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaName)
 
@@ -91,8 +96,8 @@ class ControllerCreationVC : ScrollingViewController() {
             cButton.addActionListener { add(::ControllerSelection) }
         }
 
-        private fun add(init: () -> SelectionClass) {
-            val new = init()
+        private fun add(init: (ControllerType) -> SelectionClass) {
+            val new = init(controllerType)
             uniqueInsurer.add(new.nameTextField)
             new.button.addActionListener { delete(new) }
             selections.add(new)
@@ -102,6 +107,9 @@ class ControllerCreationVC : ScrollingViewController() {
         private fun delete(sc: SelectionClass) {
             selections.remove(sc)
             uniqueInsurer.remove(sc.nameTextField)
+            when (sc) {
+                is ElectronicSelection -> controllerType.electronics.remove(sc.electronic)
+            }
             redraw()
         }
 
@@ -130,7 +138,7 @@ class ControllerCreationVC : ScrollingViewController() {
             val button: JButton
         }
 
-        class ControllerSelection : ViewController(), SelectionClass {
+        class ControllerSelection(val controllerType: ControllerType) : ViewController(), SelectionClass {
 
             override val nameTextField = JTextField()
             val typeComboBox = JComboBox<String>()
@@ -143,7 +151,6 @@ class ControllerCreationVC : ScrollingViewController() {
                 view.add(JLabel("Name:"), createGbc(0, 0).also { it.anchor = GridBagConstraints.EAST })
 
                 //Name Text Field
-
                 nameTextField.preferredSize = Dimension(300, nameTextField.preferredSize.height)
                 view.add(nameTextField, createGbc(1, 0))
 
@@ -167,19 +174,28 @@ class ControllerCreationVC : ScrollingViewController() {
             }
         }
 
-        class ElectronicSelection : ViewController(), SelectionClass {
+        class ElectronicSelection(val controllerType: ControllerType) : ViewController(), SelectionClass {
+
+            var electronic = ElectronicField("", electronics[0])
 
             override val nameTextField = JTextField()
             val typeComboBox = JComboBox<String>()
             override val button = JButton(icons["minus"])
 
             init {
+                controllerType.electronics.add(electronic)
+                controllerType.updateFile()
+
                 view.layout = GridBagLayout()
 
                 //Name Label
                 view.add(JLabel("Name:"), createGbc(0, 0).also { it.anchor = GridBagConstraints.EAST })
 
                 //Name Text Field
+                nameTextField.changeListener {
+                    electronic.name = nameTextField.text
+                    controllerType.updateFile()
+                }
                 nameTextField.preferredSize = Dimension(300, nameTextField.preferredSize.height)
                 view.add(nameTextField, createGbc(1, 0))
 
@@ -190,6 +206,10 @@ class ControllerCreationVC : ScrollingViewController() {
 
                 //Type Combo Box
                 electronics.forEach { typeComboBox.addItem(it.name) }
+                typeComboBox.addActionListener {
+                    electronic.electronic = electronics.first { it.name == typeComboBox.selectedItem }
+                    controllerType.updateFile()
+                }
                 typeComboBox.preferredSize = Dimension(200, typeComboBox.preferredSize.height)
                 view.add(typeComboBox, createGbc(4, 0))
 
@@ -205,6 +225,7 @@ class ControllerCreationVC : ScrollingViewController() {
     class MethodsManager(addButton: JButton) : ViewController() {
 
         val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate method names.", ::convertToJavaName)
+        val dropDownUniqueInsurer = TextFieldUniqueInsurer("Dropdown inputs in different methods may not have the same name.", ::convertToJavaName)
         val methods = mutableListOf<MethodCreate>()
 
         init {
@@ -215,7 +236,7 @@ class ControllerCreationVC : ScrollingViewController() {
         }
 
         fun add() {
-            val new = MethodCreate()
+            val new = MethodCreate(dropDownUniqueInsurer)
             uniqueInsurer.add(new.nameLabel)
             methods.add(new)
             new.minusButton.addActionListener { remove(new) }
@@ -234,14 +255,14 @@ class ControllerCreationVC : ScrollingViewController() {
             view.revalidate()
         }
 
-        class MethodCreate : ViewController(), FocusListener {
+        class MethodCreate(val dropDownUniqueInsurer: TextFieldUniqueInsurer) : ViewController(), FocusListener {
 
             val nameLabel = JTextField()
             val codeArea = RSyntaxTextArea(10, 0)
             val scrollArea = RTextScrollPane(codeArea)
             val listeners = scrollArea.mouseWheelListeners
             val addButton = JButton(icons["plus"])
-            val inputSelection = InputSelection(addButton)
+            val inputSelection = InputSelection(addButton, dropDownUniqueInsurer)
             val minusButton = JButton(icons["minus"])
 
             init {
@@ -280,7 +301,7 @@ class ControllerCreationVC : ScrollingViewController() {
                 view.add(extraPanel, createGbc(0, 4, fill = GridBagConstraints.BOTH, width = 3, weightX = 1.0, weightY = 1.0))
             }
 
-            class InputSelection(addButton: JButton) : ViewController() {
+            class InputSelection(addButton: JButton, val dropDownUniqueInsurer: TextFieldUniqueInsurer) : ViewController() {
 
                 val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaName)
 
@@ -311,6 +332,7 @@ class ControllerCreationVC : ScrollingViewController() {
                 private fun add(init: () -> InputClass) {
                     val new = init()
                     uniqueInsurer.add(new.nameTextField)
+                    if (new is DropdownInputVC) dropDownUniqueInsurer.add(new.nameTextField)
                     new.minusButton.addActionListener { remove(new) }
                     inputObjects.add(new as ViewController)
                     redraw()
@@ -318,6 +340,7 @@ class ControllerCreationVC : ScrollingViewController() {
 
                 private fun remove(ic: InputClass) {
                     inputObjects.remove(ic as ViewController)
+                    if (ic is DropdownInputVC) dropDownUniqueInsurer.remove(ic.nameTextField)
                     uniqueInsurer.remove(ic.nameTextField)
                     redraw()
                 }

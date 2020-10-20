@@ -6,6 +6,3 @@ package utils
  */
 fun removeJavaComments(java: String) =
         java.replace(Regex("//.*|(\"(?:\\\\[^\"]|\\\\\"|.)*?\")|(?s)/\\*.*?\\*/"), "$1 ")
-
-
-val test = removeJavaComments("")

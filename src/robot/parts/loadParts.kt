@@ -3,7 +3,7 @@ package robot.parts
 import resFolder
 import java.io.File
 
-fun loadParts(): List<Part> {
+fun loadParts(): List<ElectronicType> {
     val partsTXT = File(resFolder, "parts.txt")
     val text = partsTXT.readText()
 
@@ -16,5 +16,5 @@ fun loadParts(): List<Part> {
     val classNameLoc = 1
 
     //TODO these parts should be ordered how they are in the app
-    return noWhiteSpaceSplitPartLines.map { Part(it[nameLoc], it[classNameLoc], PartType.valueOf(it[typeLoc])) }
+    return noWhiteSpaceSplitPartLines.map { ElectronicType(it[nameLoc], it[classNameLoc], PartType.valueOf(it[typeLoc])) }
 }
