@@ -12,12 +12,12 @@ import mvc.ViewController
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import org.fife.ui.rtextarea.RTextScrollPane
-import robot.parts.ElectronicType
-import utils.convertToJavaName
+import utils.convertToJavaIdentifier
 import java.awt.*
 import java.awt.event.FocusEvent
 import java.awt.event.FocusListener
 import javax.swing.*
+import javax.swing.border.AbstractBorder
 
 class ControllerCreationVC(val controllerType: ControllerType = ControllerType()) : ScrollingViewController() {
 
@@ -78,7 +78,7 @@ class ControllerCreationVC(val controllerType: ControllerType = ControllerType()
 
     class ElectronicsAndControllersManager(val controllerType: ControllerType, eButton: JButton, cButton: JButton) : ViewController() {
 
-        private val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaName)
+        private val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaIdentifier)
 
         var electronicsView = JPanel()
         var controllerView = JPanel()
@@ -224,8 +224,8 @@ class ControllerCreationVC(val controllerType: ControllerType = ControllerType()
 
     class MethodsManager(addButton: JButton) : ViewController() {
 
-        val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate method names.", ::convertToJavaName)
-        val dropDownUniqueInsurer = TextFieldUniqueInsurer("Dropdown inputs in different methods may not have the same name.", ::convertToJavaName)
+        val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate method names.", ::convertToJavaIdentifier)
+        val dropDownUniqueInsurer = TextFieldUniqueInsurer("Dropdown inputs in different methods may not have the same name.", ::convertToJavaIdentifier)
         val methods = mutableListOf<MethodCreate>()
 
         init {
@@ -303,7 +303,7 @@ class ControllerCreationVC(val controllerType: ControllerType = ControllerType()
 
             class InputSelection(addButton: JButton, val dropDownUniqueInsurer: TextFieldUniqueInsurer) : ViewController() {
 
-                val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaName)
+                val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaIdentifier)
 
                 val inputTypeMenu = JPopupMenu()
                 val inputObjects: MutableList<ViewController> = mutableListOf()
@@ -404,7 +404,7 @@ class ControllerCreationVC(val controllerType: ControllerType = ControllerType()
 
                     class DropdownOptionManager : ViewController() {
 
-                        val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaName)
+                        val uniqueInsurer = TextFieldUniqueInsurer("There are duplicate names.", ::convertToJavaIdentifier)
 
                         val addButton = JButton("Option", icons["plus"])
 

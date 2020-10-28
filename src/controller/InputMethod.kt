@@ -1,6 +1,6 @@
 package controller
 
-import utils.convertToJavaName
+import utils.convertToJavaIdentifier
 
 abstract class InputMethod(var name: String) {
     abstract val enumName: String
@@ -9,15 +9,15 @@ abstract class InputMethod(var name: String) {
 
 class CheckBoxInputMethod(name: String) : InputMethod(name) {
     override val enumName = "CHECKBOX"
-    override fun toCode() = "boolean ${convertToJavaName(name)}"
+    override fun toCode() = "boolean ${convertToJavaIdentifier(name)}"
 }
 
 class DropDownInputMethod(name: String, var option: MutableList<String>) : InputMethod(name) {
     override val enumName = "DROPDOWN"
-    override fun toCode() = "${convertToJavaName(name) + "_Enum"} ${convertToJavaName(name)}"
+    override fun toCode() = "${convertToJavaIdentifier(name) + "_Enum"} ${convertToJavaIdentifier(name)}"
 }
 
 class NumberInputMethod(name: String) : InputMethod(name) {
     override val enumName = "NUMBER"
-    override fun toCode() = "double ${convertToJavaName(name)}"
+    override fun toCode() = "double ${convertToJavaIdentifier(name)}"
 }

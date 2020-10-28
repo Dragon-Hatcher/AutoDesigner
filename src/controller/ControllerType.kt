@@ -2,7 +2,7 @@ package controller
 
 import mvc.FileModel
 import robot.parts.ElectronicType
-import utils.convertToJavaName
+import utils.convertToJavaIdentifier
 import java.util.*
 
 class ControllerType : FileModel() {
@@ -20,13 +20,13 @@ class ControllerType : FileModel() {
         val sb = StringBuilder()
 
         sb.append("@Controller(uuid = \"$uuid\", adName = \"$name\")\n")
-        sb.append("public class ${convertToJavaName(name)} {\n")
+        sb.append("public class ${convertToJavaIdentifier(name)} {\n")
         sb.append("\n")
         sb.append("    //Controllers:\n")
         for (c in controllers) {
 //    @ControllerController(typeUUID = "8f99ab75-4732-41c2-86ec-aba7753b42ae", adName = "Some Controller")
             sb.append("    @ControllerController(typeUUID = \"${c.controller.uuid}\", adName = \"${c.name}\")\n")
-            sb.append("    public Type ${convertToJavaName((c.controller.name))};\n")
+            sb.append("    public Type ${convertToJavaIdentifier((c.controller.name))};\n")
         }
         for (e in electronics)
 
@@ -39,7 +39,7 @@ class ControllerType : FileModel() {
                 sb.removeSuffix(",\n")
                 sb.append("\n    })")
                 //java code
-                sb.append("    public void ${convertToJavaName(m.name)}(")
+                sb.append("    public void ${convertToJavaIdentifier(m.name)}(")
                 for (i in m.inputs) {
                     sb.append(i.toCode())
                     sb.append(",")

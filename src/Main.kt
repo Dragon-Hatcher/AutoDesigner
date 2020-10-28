@@ -1,4 +1,3 @@
-import auto.AutoCreationVC
 import auto.AutosModel
 import com.formdev.flatlaf.FlatDarculaLaf
 import com.formdev.flatlaf.FlatIntelliJLaf
@@ -9,12 +8,10 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
 import org.fife.ui.rsyntaxtextarea.Theme
 import robot.RobotsModel
 import robot.parts.loadParts
-import utils.convertToJavaName
 import utils.loadIcons
 import java.awt.Font
 import java.io.File
 import javax.swing.Icon
-import javax.swing.JEditorPane
 import javax.swing.UIManager
 
 val resFolder = File("res")
