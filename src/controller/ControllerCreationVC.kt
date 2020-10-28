@@ -239,7 +239,7 @@ class ControllerCreationVC(val controllerType: ControllerType = ControllerType()
             val new = MethodCreate(dropDownUniqueInsurer)
             uniqueInsurer.add(new.nameLabel)
             methods.add(new)
-            new.minusButton.addActionListener { remove(new) }
+            new.minusButton.addActionListener { remove(new); System.gc() }
             redraw()
         }
 

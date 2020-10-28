@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
 import javax.swing.JFrame
 import javax.swing.JPanel
+import javax.swing.UIManager
 
 class MainWindow : Window() {
 
@@ -21,7 +22,7 @@ class MainWindow : Window() {
         gbc.weightx = 1.0
         gbc.weighty = 1.0
         view.add(navigationController.view, gbc)
-        view.background = Color.RED
+        navigationController.view.background = UIManager.getColor("Panel.background").darker()
 
         frame.pack()
         frame.isVisible = true
