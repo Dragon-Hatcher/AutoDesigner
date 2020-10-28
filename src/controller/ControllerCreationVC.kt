@@ -490,7 +490,6 @@ class ControllerCreationVC(val controllerType: ControllerType = ControllerType()
             }
 
             override fun focusGained(e: FocusEvent?) {
-                println("Here")
                 listeners.forEach { scrollArea.addMouseWheelListener(it) }
             }
 

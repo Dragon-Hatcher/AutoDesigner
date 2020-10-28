@@ -20,7 +20,6 @@ internal class TextFieldFilter(val test: (String) -> Boolean) : DocumentFilter()
         sb.insert(offset, string)
         if (test(sb.toString())) {
             super.insertString(fb, offset, string, attr)
-        } else {
         }
     }
 
@@ -34,7 +33,6 @@ internal class TextFieldFilter(val test: (String) -> Boolean) : DocumentFilter()
         sb.replace(offset, offset + length, text)
         if (test(sb.toString())) {
             super.replace(fb, offset, length, text, attrs)
-        } else {
         }
     }
 
@@ -47,7 +45,6 @@ internal class TextFieldFilter(val test: (String) -> Boolean) : DocumentFilter()
 
         if (test(sb.toString())) {
             super.remove(fb, offset, length)
-        } else {
         }
     }
 }
