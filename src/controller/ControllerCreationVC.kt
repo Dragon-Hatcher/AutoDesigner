@@ -263,7 +263,7 @@ class ControllerCreationVC(val controllerType: ControllerType = ControllerType()
             val listeners = scrollArea.mouseWheelListeners
             val addButton = JButton(icons["plus"])
             val inputSelection = InputSelection(addButton, dropDownUniqueInsurer)
-            val minusButton = JButton(icons["minus"])
+            val minusButton = JButton(icons["trash"])
 
             init {
                 view.border = BorderFactory.createCompoundBorder(
